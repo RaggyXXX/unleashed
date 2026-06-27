@@ -1,0 +1,50 @@
+name: build-and-release
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'UnleashedBypass.cmd'
+      - 'src/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build manifest + dist
+        shell: pwsh
+        run: ./scripts/build-manifest.ps1
+
+      - name: Commit dist
+        run: |
+          git config user.name 'RaggyXXX'
+          git config user.email 'RaggyXXX@users.noreply.github.com'
+          git add dist
+          if git diff --cached --quiet; then
+            echo "no dist changes"
+          else
+            git commit -m 'build: update dist [skip ci]'
+            git push
+          fi
+
+      - name: Publish installer to rolling release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view installer >/dev/null 2>&1; then
+            gh release upload installer UnleashedBypass.cmd --clobber
+          else
+            gh release create installer UnleashedBypass.cmd \
+              --title 'Unleashed Installer' \
+              --notes 'Latest installer (self-updating).' \
+              --latest
+          fi

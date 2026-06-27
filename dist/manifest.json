@@ -1,0 +1,20 @@
+{
+    "cli":  {
+                "version":  "1.0.0",
+                "file":  "UnleashedBypass.cmd",
+                "url":  "https://github.com/RaggyXXX/unleashed/releases/latest/download/UnleashedBypass.cmd",
+                "sha256":  "c68a7dd116c95becde47e601d746697684d1780783a8471a6ef43ae5b4485791"
+            },
+    "poro":  {
+                 "version":  "1.0.0",
+                 "file":  "poro-noads-daemon.ps1",
+                 "url":  "https://raw.githubusercontent.com/RaggyXXX/unleashed/main/dist/poro-noads-daemon.ps1",
+                 "sha256":  "416dfadc8ea2c7f4b171ba7f6ed92d796fb059b2c7ee0a077cb66ac828fc5343"
+             },
+    "blitz":  {
+                  "version":  "1.0.0",
+                  "file":  "blitz-noads-daemon.ps1",
+                  "url":  "https://raw.githubusercontent.com/RaggyXXX/unleashed/main/dist/blitz-noads-daemon.ps1",
+                  "sha256":  "1f0fb35b2eed59d706b17a1782968c6c64b858eeb34c894ae11fedfdad0e1acf"
+              }
+}
