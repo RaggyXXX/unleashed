@@ -1,0 +1,2 @@
+# keep bytes exactly as committed (no EOL conversion) so served SHA256 == build-time SHA256
+* -text
