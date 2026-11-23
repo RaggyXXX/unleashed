@@ -1,13 +1,14 @@
 # Unleashed
 
-An ad-free companion layer for the **Blitz** and **Porofessor** desktop apps (League of Legends).
+An ad-free companion layer for the **Blitz**, **Porofessor**, **OP.GG** and **TFTAcademy** desktop apps
+(League of Legends and Teamfight Tactics).
 It removes the in-app advertising and reclaims the wasted layout space, without ever touching the
 apps themselves.
 
 ## What it is
 
 Unleashed is **not** a mod, a crack, or a patched build. It never edits, replaces, or injects into
-Blitz's or Porofessor's files. Their code stays 100% untouched. Instead it runs a small
+any supported app's files. Their code stays 100% untouched. Instead it runs a small
 **companion daemon** alongside the app:
 
 - It starts the app together with a lightweight background process (a PowerShell daemon, no Node
@@ -39,11 +40,16 @@ After a reboot, a crash, or an app update it simply re-attaches the next time th
 | :--: | :--: |
 | ![OP.GG with ads](assets/opgg_before.webp) | ![OP.GG ad-free](assets/opgg_after.webp) |
 
+### TFTAcademy
+| With ads (stock) | Ad-free (Unleashed) |
+| :--: | :--: |
+| ![TFTAcademy with ads](assets/tft_before.webp) | ![TFTAcademy ad-free](assets/tft_after.webp) |
+
 ## Download & install
 
 1. Download **UnleashedBypass.cmd** from the [latest release](../../releases/latest).
 2. Run it and pick an install option (auto-install detects all installed apps).
-3. Done. Start Blitz / Porofessor / OP.GG as usual and the ads are gone.
+3. Done. Start Blitz / Porofessor / OP.GG / TFTAcademy as usual and the ads are gone.
 
 The installer pulls its components from this repo, verifies each one by SHA256, and keeps itself
 and the daemons up to date. An optional auto-updater keeps everything current in the background,
