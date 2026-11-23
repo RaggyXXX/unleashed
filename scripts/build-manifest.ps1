@@ -20,6 +20,7 @@ New-Item -ItemType Directory -Force -Path $dist | Out-Null
 Copy-Item (Join-Path $Root 'src/poro-noads-daemon.ps1')  (Join-Path $dist 'poro-noads-daemon.ps1')  -Force
 Copy-Item (Join-Path $Root 'src/blitz-noads-daemon.ps1') (Join-Path $dist 'blitz-noads-daemon.ps1') -Force
 Copy-Item (Join-Path $Root 'src/opgg-noads-daemon.ps1')  (Join-Path $dist 'opgg-noads-daemon.ps1')  -Force
+Copy-Item (Join-Path $Root 'src/tftacademy-noads-daemon.ps1') (Join-Path $dist 'tftacademy-noads-daemon.ps1') -Force
 
 function HashOf($p) { (Get-FileHash -Algorithm SHA256 -LiteralPath $p).Hash.ToLower() }
 $prev = $null; $pp = Join-Path $dist 'manifest.json'
@@ -33,11 +34,18 @@ $cliSha   = HashOf $cmd
 $poroSha  = HashOf (Join-Path $dist 'poro-noads-daemon.ps1')
 $blitzSha = HashOf (Join-Path $dist 'blitz-noads-daemon.ps1')
 $opggSha  = HashOf (Join-Path $dist 'opgg-noads-daemon.ps1')
+$tftacademySha = HashOf (Join-Path $dist 'tftacademy-noads-daemon.ps1')
 $manifest = [ordered]@{
   cli   = [ordered]@{ version=$cliVer;                       file='UnleashedBypass.cmd';    url="$relBase/UnleashedBypass.cmd";    sha256=$cliSha }
   poro  = [ordered]@{ version=(DaemonVer 'poro' $poroSha);   file='poro-noads-daemon.ps1';  url="$rawBase/poro-noads-daemon.ps1";  sha256=$poroSha }
   blitz = [ordered]@{ version=(DaemonVer 'blitz' $blitzSha); file='blitz-noads-daemon.ps1'; url="$rawBase/blitz-noads-daemon.ps1"; sha256=$blitzSha }
   opgg  = [ordered]@{ version=(DaemonVer 'opgg' $opggSha);   file='opgg-noads-daemon.ps1';  url="$rawBase/opgg-noads-daemon.ps1";  sha256=$opggSha }
+  tftacademy = [ordered]@{
+    version = (DaemonVer 'tftacademy' $tftacademySha)
+    file = 'tftacademy-noads-daemon.ps1'
+    url = "$rawBase/tftacademy-noads-daemon.ps1"
+    sha256 = $tftacademySha
+  }
 }
 [IO.File]::WriteAllText($pp, ($manifest | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
-Write-Host ("manifest: cli v$cliVer  poro v$($manifest.poro.version)  blitz v$($manifest.blitz.version)  opgg v$($manifest.opgg.version)")
+Write-Host ("manifest: cli v$cliVer  poro v$($manifest.poro.version)  blitz v$($manifest.blitz.version)  opgg v$($manifest.opgg.version)  tftacademy v$($manifest.tftacademy.version)")
